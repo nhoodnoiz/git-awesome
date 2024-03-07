@@ -1,0 +1,10 @@
+crawl_data:
+  source_website: 09book_list-20.html?page=09book_list-20&start=0&rowperpage=1000
+  source_url_1: flipbook/ebook50-Konrad/b019/files/downloads/คดีพิพาทการบริหารงานบุคคล.pdf
+  source_url_2: flipbook/ebook50-Konrad/006/files/downloads/แนวปฏิบัติ62.pdf
+  output_folder: ./admincourt_doc-e
+
+convert_to_jsonl:
+  pdf_path: ./admincourt
+  text_rule_file: ./pdf_correction_rules_new.txt
+  output_path: ./output.jsonl

@@ -25,10 +25,17 @@ def main(cfg):
         sub_reponse.encoding = ENCODING
 
         sub_soup = BeautifulSoup(sub_reponse.text, "html.parser")
-        sub_html_link = sub_soup.find("a", {"class": "btn btn-info text-start my-2"})
+        # sub_html_link = sub_soup.find("a", {"class": "btn btn-info text-start my-2"})
+        sub_html_link = sub_soup.find("span", {"style": "font-size:18px"})
+        sub_html_link = sub_html_link.find_all("a")
 
-        file_link = sub_html_link[HREF_KEY]
-        file_url = url_format.format(file_link)
+        file_link = sub_html_link[-1][HREF_KEY]
+
+        # These two pages have broken url, so the urls are inserted manually.
+        if html_link[HREF_KEY] == "09bookdetail-6751.html":
+            file_link = url_format.format(config.source_url_1)
+        if html_link[HREF_KEY] == "09bookdetail-6759.html":
+            file_link = url_format.format(config.source_url_2)
 
         date = sub_soup.find(
             "div", {"class": "bg-info bg-gradient w-100 p-2 text-end text-reset"}
@@ -40,7 +47,7 @@ def main(cfg):
         local_file_path = os.path.join(config.output_folder, local_file_name)
 
         with open(local_file_path, "wb") as file:
-            file.write(requests.get(file_url).content)
+            file.write(requests.get(file_link).content)
 
 
 if __name__ == "__main__":
